@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../database/temporary_database.dart';
+import 'package:edirne_gezgini_ui/constants.dart' as constants;
 import '../model/enum/place_category.dart';
 import '../model/place.dart';
 import '../widget/hero_area.dart';
@@ -29,15 +30,7 @@ class _HomePageState extends State<HomePage> {
 
     double width = MediaQuery.of(context).size.width/100;
     double height = MediaQuery.of(context).size.height/100;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: ThemeData.dark().textTheme.copyWith(),
-        fontFamily: "Inter",
-        useMaterial3: true,
-        primaryColor: Colors.white,
-      ),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           leading: PopupMenuButton<String>(
             onSelected: (String result) {},
@@ -74,7 +67,7 @@ class _HomePageState extends State<HomePage> {
           title: const Center(
               child: AutoSizeText(
             "EDİRNE GEZGİNİ",
-            style: TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold,color: constants.primaryTextColor),
           )),
         ),
         body: ListView(scrollDirection: Axis.vertical, children: [
@@ -86,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                 textAlign: TextAlign.left,
                 minFontSize: 15,
                 style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 1),
+                  color: constants.primaryTextColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -96,7 +89,7 @@ class _HomePageState extends State<HomePage> {
           
           //list historical places
           SizedBox(
-            width: width*50,
+            width: width*100,
             height: height*65,
             child: historicalPlacesListView(historicalPlaces),
           ),
@@ -107,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 "Müzeler",
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 1),
+                  color: constants.primaryTextColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -121,8 +114,7 @@ class _HomePageState extends State<HomePage> {
               height: height*65,
               child: museumsListView(museums)),
         ]),
-      ),
-    );
+      );
   }
 
   Widget historicalPlacesListView(List<Place> historicalPlaces) {

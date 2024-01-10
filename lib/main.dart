@@ -1,8 +1,8 @@
-import 'package:edirne_gezgini_ui/view/home_page.dart';
+import 'package:edirne_gezgini_ui/view/bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
 
 
 void main() {
-  runApp(const HomePage());
+  runApp(const BottomNavBar());
 }
 
