@@ -1,0 +1,4 @@
+enum BasePlaceCategory{
+  accommodation,
+  place
+}

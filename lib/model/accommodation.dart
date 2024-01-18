@@ -1,6 +1,8 @@
+import 'package:edirne_gezgini_ui/model/base_place.dart';
+
 import 'enum/accommodation_category.dart';
 
-class Accommodation{
+class Accommodation extends BasePlace{
   final String title;
 
   final String image;
