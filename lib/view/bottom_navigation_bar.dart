@@ -1,55 +1,55 @@
 import 'package:edirne_gezgini_ui/view/favorites_page.dart';
 import 'package:edirne_gezgini_ui/view/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:edirne_gezgini_ui/constants.dart' as constants;
 
-
-class BottomNavBar extends StatelessWidget{
+class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
+  State<StatefulWidget> createState() => _BottomNavBarState();
+}
+
+class _BottomNavBarState extends State<BottomNavBar> {
+  int currentIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    int currentIndex = 0;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
           body: IndexedStack(
             index: currentIndex,
-            children:  const [
+            children: const [
               HomePage(),
-              FavoritePage()
+              FavoritePage(),
             ],
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            selectedLabelStyle: GoogleFonts.gentiumBookPlus(),
-            unselectedLabelStyle: GoogleFonts.gentiumBookPlus(),
-            selectedItemColor: constants.bottomNavBarColor,
-            currentIndex: currentIndex,
-            type: BottomNavigationBarType.fixed,
+          bottomNavigationBar: NavigationBar(
+            destinations: [home(), favorites()],
+            indicatorColor: constants.bottomNavBarColor.withOpacity(0.9),
+            selectedIndex: currentIndex,
             elevation: 0,
-            onTap: (index){
-              currentIndex = index;
+            onDestinationSelected: (int index) {
+              setState(() {
+                currentIndex = index;
+              });
             },
-            items: [
-              home(),
-              favorites()
-            ],
           )),
     );
   }
+}
 
-  BottomNavigationBarItem home(){
-    return const BottomNavigationBarItem(
-        icon: Icon(Icons.home),
-        label: "Ana Sayfa"
-    );
-  }
+NavigationDestination home() {
+  return const NavigationDestination(
+      selectedIcon: Icon(Icons.home),
+      icon: Icon(Icons.home_outlined),
+      label: "Ana Sayfa");
+}
 
-  BottomNavigationBarItem favorites(){
-    return const BottomNavigationBarItem(
-        icon: Icon(Icons.favorite),
-        label: "Favorilerim"
-    );
-  }
+NavigationDestination favorites() {
+  return const NavigationDestination(
+      selectedIcon: Icon(Icons.favorite),
+      icon: Icon(Icons.favorite_border),
+      label: "Favorilerim");
 }
