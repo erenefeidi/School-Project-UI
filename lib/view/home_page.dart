@@ -1,4 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:edirne_gezgini_ui/model/enum/base_place_category.dart';
+import 'package:edirne_gezgini_ui/view/place_details_page.dart';
 import 'package:flutter/material.dart';
 
 import '../database/temporary_database.dart';
@@ -30,6 +32,7 @@ class _HomePageState extends State<HomePage> {
 
     double width = MediaQuery.of(context).size.width/100;
     double height = MediaQuery.of(context).size.height/100;
+
     return Scaffold(
         appBar: AppBar(
           leading: PopupMenuButton<String>(
@@ -69,6 +72,7 @@ class _HomePageState extends State<HomePage> {
             "EDİRNE GEZGİNİ",
             style: TextStyle(fontWeight: FontWeight.bold,color: constants.primaryTextColor),
           )),
+          scrolledUnderElevation: 0.0,
         ),
         body: ListView(scrollDirection: Axis.vertical, children: [
           const HeroArea(),
@@ -124,11 +128,18 @@ class _HomePageState extends State<HomePage> {
       scrollDirection: Axis.horizontal,
       itemCount: historicalPlaces.length,
       itemBuilder: (BuildContext context, int index) {
+        Place currentHistoricalPlace = historicalPlaces[index];
+
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: PlaceCard(
-            title: historicalPlaces[index].title,
-            image: historicalPlaces[index].image,
+          child: GestureDetector(
+            child: PlaceCard(
+              title: currentHistoricalPlace.title,
+              image: currentHistoricalPlace.image,
+            ),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> PlaceDetailsPage(place: currentHistoricalPlace, category: BasePlaceCategory.place,)));
+            },
           ),
         );
       },
@@ -141,11 +152,18 @@ class _HomePageState extends State<HomePage> {
       scrollDirection: Axis.horizontal,
       itemCount: museums.length,
       itemBuilder: (BuildContext context, int index) {
+        Place currentMuseum = museums[index];
+
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: PlaceCard(
-            title: museums[index].title,
-            image: museums[index].image,
+          child: GestureDetector(
+            child: PlaceCard(
+              title: currentMuseum.title,
+              image: currentMuseum.image,
+            ),
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> PlaceDetailsPage(place: currentMuseum, category: BasePlaceCategory.place,)));
+            },
           ),
         );
       },

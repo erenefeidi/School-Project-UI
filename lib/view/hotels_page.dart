@@ -1,3 +1,4 @@
+import 'package:edirne_gezgini_ui/model/enum/base_place_category.dart';
 import 'package:edirne_gezgini_ui/view/place_details_page.dart';
 import 'package:flutter/material.dart';
 
@@ -50,7 +51,7 @@ class _HotelsPageState extends State<HotelsPage> {
             child:
                 PlaceCard(title: currentHotel.title, image: currentHotel.image),
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> PlaceDetailsPage(accommodation: currentHotel)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> PlaceDetailsPage(place: currentHotel, category: BasePlaceCategory.accommodation,)));
             },
           );
         });

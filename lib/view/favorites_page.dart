@@ -17,15 +17,25 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  List<Favorite> favoritePlaces = TemporaryDatabase().favorites.where((favorite) => favorite.category == BasePlaceCategory.place).toList();
-  List<Favorite> favoriteAccommodations = TemporaryDatabase().favorites.where((favorite) => favorite.category == BasePlaceCategory.accommodation).toList();
+  List<Favorite> favoritePlaces = TemporaryDatabase()
+      .favorites
+      .where((favorite) => favorite.category == BasePlaceCategory.place)
+      .toList();
+  List<Favorite> favoriteAccommodations = TemporaryDatabase()
+      .favorites
+      .where((favorite) => favorite.category == BasePlaceCategory.accommodation)
+      .toList();
+
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width/100;
-    double height = MediaQuery.of(context).size.height/100;
+    double width = MediaQuery.of(context).size.width / 100;
+    double height = MediaQuery.of(context).size.height / 100;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
           centerTitle: true,
+          backgroundColor: Colors.white,
+          scrolledUnderElevation: 0.0,
           title: const Text(
             "favorilerim",
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -38,30 +48,30 @@ class _FavoritePageState extends State<FavoritePage> {
             child: AutoSizeText(
               "Favori mekanlarım",
               style: TextStyle(
-                fontSize: 24,
-                color: constants.primaryTextColor,
-                fontWeight: FontWeight.bold
-              ),
+                  fontSize: 24,
+                  color: constants.primaryTextColor,
+                  fontWeight: FontWeight.bold),
             ),
           ),
 
-          const SizedBox(height: 16,),
+          const SizedBox(
+            height: 16,
+          ),
           //list places
           SizedBox(
-            width: width*100,
-            height: height*65,
+            width: width * 100,
+            height: height * 65,
             child: favoritePlacesListView(favoritePlaces),
-            ),
+          ),
 
           const Padding(
             padding: EdgeInsets.all(8),
             child: AutoSizeText(
               "Favori konaklama yerlerim",
               style: TextStyle(
-                fontSize: 24,
-                color: constants.primaryTextColor,
-                fontWeight: FontWeight.bold
-              ),
+                  fontSize: 24,
+                  color: constants.primaryTextColor,
+                  fontWeight: FontWeight.bold),
             ),
           ),
 
@@ -69,10 +79,10 @@ class _FavoritePageState extends State<FavoritePage> {
 
           //list accommodations
           SizedBox(
-            width: width*100,
-            height: height*65,
+            width: width * 100,
+            height: height * 65,
             child: favoriteAccommodationsListView(favoriteAccommodations),
-            ),
+          ),
         ],
       ),
     );
@@ -89,32 +99,31 @@ class _FavoritePageState extends State<FavoritePage> {
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
-            child: PlaceCard(
-                title: currentPlace.title,
-                image: currentPlace.image
-            ),
+            child:
+                PlaceCard(
+                    title: currentPlace.title,
+                    image: currentPlace.image
+                ),
           );
-        }
-    );
+        });
   }
 
-  Widget favoriteAccommodationsListView(List<Favorite> favoriteAccommodations){
+  Widget favoriteAccommodationsListView(List<Favorite> favoriteAccommodations) {
     return ListView.builder(
         padding: const EdgeInsets.all(8),
         scrollDirection: Axis.horizontal,
         itemCount: favoriteAccommodations.length,
-        itemBuilder: (BuildContext context, int index){
+        itemBuilder: (BuildContext context, int index) {
 
-          Accommodation currentAccommodation = favoriteAccommodations[index].favoritePlace as Accommodation;
+          Accommodation currentAccommodation =
+              favoriteAccommodations[index].favoritePlace as Accommodation;
 
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: PlaceCard(
                 title: currentAccommodation.title,
-                image: currentAccommodation.image
-            ),
+                image: currentAccommodation.image),
           );
-        }
-    );
+        });
   }
 }
