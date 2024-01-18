@@ -7,9 +7,11 @@ class Place extends BasePlace{
 
   final String? info;
 
+  final String location;
+
   final String image;
 
   final PlaceCategory category;
 
-  Place({required this.title, required this.image, required this.category, this.info});
+  Place({required this.title, required this.image, required this.category, this.info, required this.location});
 }

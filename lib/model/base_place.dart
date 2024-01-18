@@ -1,1 +1,1 @@
-class BasePlace{}
+abstract class BasePlace{}

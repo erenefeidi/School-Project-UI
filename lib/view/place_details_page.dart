@@ -1,12 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:edirne_gezgini_ui/model/base_place.dart';
+import 'package:edirne_gezgini_ui/model/enum/base_place_category.dart';
 import 'package:flutter/material.dart';
 import '../model/accommodation.dart';
+import '../model/place.dart';
 
 
 class PlaceDetailsPage extends StatefulWidget {
-  final Accommodation accommodation;
+  final BasePlace place;
 
-  const PlaceDetailsPage({super.key, required this.accommodation});
+  final BasePlaceCategory category;
+
+  const PlaceDetailsPage({super.key, required this.place, required this.category});
 
   @override
   State<StatefulWidget> createState() => _PlaceDetailsPageState();
@@ -15,7 +20,25 @@ class PlaceDetailsPage extends StatefulWidget {
 class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
   @override
   Widget build(BuildContext context) {
-    Accommodation accommodation = widget.accommodation;
+    late String title;
+    late String? info;
+    late String location;
+    late String image;
+
+    if(widget.category == BasePlaceCategory.place){
+      Place currentPlace = widget.place as Place;
+      title = currentPlace.title;
+      info = currentPlace.info;
+      location = currentPlace.location;
+      image = currentPlace.image;
+    } else{
+      Accommodation currentAccommodation = widget.place as Accommodation;
+      title = currentAccommodation.title;
+      info = currentAccommodation.info;
+      location = currentAccommodation.location;
+      image = currentAccommodation.image;
+    }
+
     double width = MediaQuery
         .of(context)
         .size
@@ -29,7 +52,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
       appBar: AppBar(
           centerTitle: true,
           title: Text(
-            accommodation.title,
+            title,
             style: const TextStyle(fontWeight: FontWeight.bold),
           )),
       body: Padding(
@@ -40,7 +63,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.asset(
-                accommodation.image,
+                image,
                 height: height * 30,
                 width: width * 100,
                 fit: BoxFit.cover,
@@ -50,7 +73,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             const SizedBox(height: 20,),
 
             AutoSizeText(
-              accommodation.info,
+              info!,
               style: const TextStyle(fontSize: 15, color: Colors.black87),
               maxLines: 10,
             ),
@@ -66,7 +89,7 @@ class _PlaceDetailsPageState extends State<PlaceDetailsPage> {
             ),
 
             AutoSizeText(
-              accommodation.location,
+              location,
               style: const TextStyle(fontSize: 15, color: Colors.black87),
             )
           ],
